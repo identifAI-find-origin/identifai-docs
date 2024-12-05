@@ -1,0 +1,997 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "IdentifAI API",
+    "version": "1.0.0",
+    "description": "API for integrating IdentifAI's image and video classification capabilities.<br><details><summary>**How to obtain your API Key**</summary>To obtain your API key, follow these simple steps:   <ol><li><p>**Create a user profile and log in to the platform**</p>If you don't have an account yet, visit our platform and create a user profile. Once you've completed registration and verified your email, log in with your credentials.</li><li><p>**Access the user menu**</p>After logging in, click on your name or the user icon in the top-right corner of the screen.</li><li><p>**Select the API Key option**</p>In the dropdown menu that appears, select the \"API Key\" option. From there, you can view or generate your API key.</li></ol>Now you are ready to use your API key in our API!</details><details><summary>**How to use the API**</summary>To use the API, first make a **POST** request to start the classification. Then, use the provided ***hash*** from the **POST** request to retrieve the results.\n<details>\n<summary>**1. Image Classification**</summary>\n  * To classify an image, you need to make a **POST** request to `/api/classification` with the required parameters (for details on the parameters, refer to the *\"Classification\"* section below).\n  * In the response, you will receive the ***hash*** of the classified image.\n  * Use the provided ***hash*** to retrieve the classification results by making a **GET** request to `/api/classification/{hash}` (for details on how to structure this request, see the *\"Classification\"* section below).\n  * The response will contain the classification results for the image in JSON format.<br>In the response, you will find a ***results*** array, which includes the classification results for each model used, and a ***verdicts*** array, which contains the results for each heuristic applied.<br>If the classification is not yet complete, continue sending the **GET** request until the result is available.</details><details><summary>**2. Video Classification**</summary>\n    * To classify a video, you need to make a **POST** request to `/api/classification_video` with the required parameters (for details on the parameters, refer to the *\"Classification\"* section below).\n    * In the response, you will receive the ***hash*** of the classified video.\n    * Use the provided ***hash*** to retrieve the classification results by making a **GET** request to `/api/classification_video/{hash}` (for details on how to structure this request, see the *\"Classification\"* section below).\n    * The response will provide the classification results for the video in JSON format. For video classification, the video is divided into *frames*.<br> In the response, you will find a ***results*** array that includes the classification outcomes for each model applied to each analyzed frame, and a ***verdicts*** array containing the results for each heuristic used.<br> If the classification is not complete, continue sending the **GET** request until the final results are returned.</details><details><summary>**3. All Classifications**</summary>The `/api/classifications` endpoint will return all the image classifications made by a user. This will list the results of all past image classification requests.</details><details><summary>**4. User Management**</summary>  The **POST** `/api/user` endpoint allows you to create a user, while the **DELETE** `/api/user` endpoint is used to delete a user (For the structure of the requests, see more in the user section below).</details></details>"
+  },
+  "servers": [
+    {
+      "url": "https://backend.identifai.net"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Classification",
+      "description": "Classification routes"
+    },
+    {
+      "name": "User",
+      "description": "User actions"
+    }
+  ],
+  "paths": {
+    "/api/classifications": {
+      "get": {
+        "summary": "Get all classifications",
+        "description": "Retrieve a comprehensive list of all image classification requests.",
+        "tags": [
+          "Classification"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of classifications.",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "hash": "8d64370a87b820cc1cf620338f5c898bab37439c9a405f32d9eaffc50c4f27b0",
+                    "name": "image.jpg",
+                    "path": "images\/8d64370a87b820cc1cf620338f5c898bab37439c9a405f32d9eaffc50c4f27b0",
+                    "user_id": 32,
+                    "classification": null,
+                    "confidence": null,
+                    "version": null,
+                    "created_at": "2024-09-27T09:15:39.000000Z",
+                    "updated_at": "2024-09-27T09:15:41.000000Z",
+                    "image_report_id": null,
+                    "c2pa": false,
+                    "results": [
+                      {
+                        "model": "V011",
+                        "elapsed_time": 0.19612407684326172,
+                        "classification": [
+                          {
+                            "label": "human",
+                            "score": 0.9950849413871764
+                          },
+                          {
+                            "label": "artificial",
+                            "score": 0.004915016237646341
+                          }
+                        ]
+                      },
+                      {
+                        "model": "V01",
+                        "elapsed_time": 0.19582748413085935,
+                        "classification": [
+                          {
+                            "label": "human",
+                            "score": 0.9630268216133118
+                          },
+                          {
+                            "label": "artificial",
+                            "score": 0.036973148584365845
+                          }
+                        ]
+                      },
+                      {
+                        "model": "brokenwand2",
+                        "elapsed_time": 0.7836010456085205,
+                        "classification": [
+                          {
+                            "label": "artificial",
+                            "score": 0.939607322216034
+                          },
+                          {
+                            "label": "human",
+                            "score": 0.060392677783966064
+                          }
+                        ]
+                      }
+                    ],
+                    "verdicts": [
+                      {
+                        "heuristic": "Majority",
+                        "confidence": 0.979055881500244,
+                        "classification": "human"
+                      },
+                      {
+                        "heuristic": "Average",
+                        "confidence": 0.6728348135948181,
+                        "classification": "human"
+                      },
+                      {
+                        "heuristic": "AverageExclude10",
+                        "confidence": 0.6728348135948181,
+                        "classification": "human"
+                      },
+                      {
+                        "heuristic": "AverageExclude20",
+                        "confidence": 0.6728348135948181,
+                        "classification": "human"
+                      },
+                      {
+                        "heuristic": "AverageExclude30",
+                        "confidence": 0.6728348135948181,
+                        "classification": "human"
+                      },
+                      {
+                        "heuristic": "TopRelevant",
+                        "confidence": 0.99,
+                        "classification": "human"
+                      }
+                    ],
+                    "false_positive": false
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classification": {
+      "post": {
+        "summary": "Submit an image for classification",
+        "description": "Submit an image to be classified as human or artificial.",
+        "tags": [
+          "Classification"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "image": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "The image to be classified."
+                  },
+                  "with_llm": {
+                    "type": "boolean",
+                    "description": "Set it to true if you also want to get a textual description of the image."
+                  },
+                  "with_morphing": {
+                    "type": "boolean",
+                    "description": "Set it to true if you also want to analyze people's faces in the image using morphing."
+                  }
+                },
+                "required": [
+                  "image"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The classification hash.",
+            "content": {
+              "application/json": {
+                "example": "8d64370a87b820cc1cf620338f5c898bab37439c9a405f32d9eaffc50c4f27b0"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classification/{hash}": {
+      "get": {
+        "summary": "Get a classification result",
+        "description": "Retrieve the classification result for a specific image.",
+        "tags": [
+          "Classification"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "hash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The hash of the image."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The classification result.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "hash": "8d64370a87b820cc1cf620338f5c898bab37439c9a405f32d9eaffc50c4f27b0",
+                  "name": "image.jpg",
+                  "c2pa": null,
+                  "results": [
+                    {
+                      "model": "V011",
+                      "elapsed_time": 0.19612407684326172,
+                      "classification": [
+                        {
+                          "label": "human",
+                          "score": 0.9950849413871764
+                        },
+                        {
+                          "label": "artificial",
+                          "score": 0.004915016237646341
+                        }
+                      ]
+                    },
+                    {
+                      "model": "V01",
+                      "elapsed_time": 0.19582748413085935,
+                      "classification": [
+                        {
+                          "label": "human",
+                          "score": 0.9630268216133118
+                        },
+                        {
+                          "label": "artificial",
+                          "score": 0.036973148584365845
+                        }
+                      ]
+                    },
+                    {
+                      "model": "brokenwand2",
+                      "elapsed_time": 0.7836010456085205,
+                      "classification": [
+                        {
+                          "label": "artificial",
+                          "score": 0.939607322216034
+                        },
+                        {
+                          "label": "human",
+                          "score": 0.060392677783966064
+                        }
+                      ]
+                    }
+                  ],
+                  "verdicts": [
+                    {
+                      "heuristic": "Majority",
+                      "confidence": 0.979055881500244,
+                      "classification": "human"
+                    },
+                    {
+                      "heuristic": "Average",
+                      "confidence": 0.6728348135948181,
+                      "classification": "human"
+                    },
+                    {
+                      "heuristic": "AverageExclude10",
+                      "confidence": 0.6728348135948181,
+                      "classification": "human"
+                    },
+                    {
+                      "heuristic": "AverageExclude20",
+                      "confidence": 0.6728348135948181,
+                      "classification": "human"
+                    },
+                    {
+                      "heuristic": "AverageExclude30",
+                      "confidence": 0.6728348135948181,
+                      "classification": "human"
+                    },
+                    {
+                      "heuristic": "TopRelevant",
+                      "confidence": 0.99,
+                      "classification": "human"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ImageResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classification_video": {
+      "post": {
+        "summary": "Submit a video for classification",
+        "description": "Submit a video for classification",
+        "tags": [
+          "Classification"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "video": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "The video to be classified."
+                  },
+                  "frames": {
+                    "type": "integer",
+                    "enum": [
+                      5,
+                      10,
+                      30
+                    ],
+                    "description": "Choose to classify 5, 10 or 30 frames."
+                  },
+                  "with_llm": {
+                    "type": "boolean",
+                    "description": "Set it to true if you also want to get a textual description of the image."
+                  },
+                  "with_morphing": {
+                    "type": "boolean",
+                    "description": "Set it to true if you also want to analyze people's faces in the image using morphing."
+                  }
+                },
+                "required": [
+                  "video"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The classification hash.",
+            "content": {
+              "application/json": {
+                "example": "ee9ac46c6eb0e7bcce54c4167a168cefe6f92feb4fb282687fbbbcf9dd37ba58"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classification/video/{hash}": {
+      "get": {
+        "summary": "Get a video classification result",
+        "description": "Retrieve the classification result for a specific video.",
+        "tags": [
+          "Classification"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "hash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The hash of the video."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The classification result.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "hash": "ee9ac46c6eb0e7bcce54c4167a168cefe6f92feb4fb282687fbbbcf9dd37ba58",
+                  "name": "video.mp4",
+                  "results": {
+                    "images": [
+                      [
+                        {
+                          "model": "V011",
+                          "elapsed_time": 0.298905611038208,
+                          "classification": [
+                            {
+                              "label": "artificial",
+                              "score": 0.9971989393234252
+                            },
+                            {
+                              "label": "human",
+                              "score": 0.0028010292444378138
+                            }
+                          ]
+                        },
+                        {
+                          "model": "V01",
+                          "elapsed_time": 0.42429351806640625,
+                          "classification": [
+                            {
+                              "label": "artificial",
+                              "score": 0.9912893772125244
+                            },
+                            {
+                              "label": "human",
+                              "score": 0.00871063582599163
+                            }
+                          ]
+                        },
+                        {
+                          "model": "brokenwand2",
+                          "elapsed_time": 2.044203519821167,
+                          "classification": [
+                            {
+                              "label": "artificial",
+                              "score": 0.28340333700180054
+                            },
+                            {
+                              "label": "human",
+                              "score": 0.7165966629981995
+                            }
+                          ]
+                        }
+                      ],
+                      [
+                        {
+                          "model": "V011",
+                          "elapsed_time": 0.6421136856079102,
+                          "classification": [
+                            {
+                              "label": "artificial",
+                              "score": 0.9897212386131288
+                            },
+                            {
+                              "label": "human",
+                              "score": 0.010278819128870964
+                            }
+                          ]
+                        },
+                        {
+                          "model": "V01",
+                          "elapsed_time": 0.300570011138916,
+                          "classification": [
+                            {
+                              "label": "artificial",
+                              "score": 0.978436291217804
+                            },
+                            {
+                              "label": "human",
+                              "score": 0.021563712507486343
+                            }
+                          ]
+                        },
+                        {
+                          "model": "brokenwand2",
+                          "elapsed_time": 1.2864701747894287,
+                          "classification": [
+                            {
+                              "label": "artificial",
+                              "score": 0.309308260679245
+                            },
+                            {
+                              "label": "human",
+                              "score": 0.690691739320755
+                            }
+                          ]
+                        }
+                      ],
+                      [
+                        {
+                          "model": "V011",
+                          "elapsed_time": 0.5433242321014404,
+                          "classification": [
+                            {
+                              "label": "artificial",
+                              "score": 0.9971287846565248
+                            },
+                            {
+                              "label": "human",
+                              "score": 0.002871240023523569
+                            }
+                          ]
+                        },
+                        {
+                          "model": "V01",
+                          "elapsed_time": 0.5014364719390869,
+                          "classification": [
+                            {
+                              "label": "artificial",
+                              "score": 0.9842044711112976
+                            },
+                            {
+                              "label": "human",
+                              "score": 0.015795564278960228
+                            }
+                          ]
+                        },
+                        {
+                          "model": "brokenwand2",
+                          "elapsed_time": 2.0058579444885254,
+                          "classification": [
+                            {
+                              "label": "artificial",
+                              "score": 0.2019975483417511
+                            },
+                            {
+                              "label": "human",
+                              "score": 0.7980024516582489
+                            }
+                          ]
+                        }
+                      ],
+                      [
+                        {
+                          "model": "V011",
+                          "elapsed_time": 0.23569488525390625,
+                          "classification": [
+                            {
+                              "label": "artificial",
+                              "score": 0.9974629878997804
+                            },
+                            {
+                              "label": "human",
+                              "score": 0.0025370449293404818
+                            }
+                          ]
+                        },
+                        {
+                          "model": "V01",
+                          "elapsed_time": 0.3069732189178467,
+                          "classification": [
+                            {
+                              "label": "artificial",
+                              "score": 0.9899019002914428
+                            },
+                            {
+                              "label": "human",
+                              "score": 0.01009807176887989
+                            }
+                          ]
+                        },
+                        {
+                          "model": "brokenwand2",
+                          "elapsed_time": 2.1493258476257324,
+                          "classification": [
+                            {
+                              "label": "artificial",
+                              "score": 0.11430399119853972
+                            },
+                            {
+                              "label": "human",
+                              "score": 0.8856960088014603
+                            }
+                          ]
+                        }
+                      ],
+                      [
+                        {
+                          "model": "V011",
+                          "elapsed_time": 0.568305253982544,
+                          "classification": [
+                            {
+                              "label": "artificial",
+                              "score": 0.9976150989532472
+                            },
+                            {
+                              "label": "human",
+                              "score": 0.0023849199060350657
+                            }
+                          ]
+                        },
+                        {
+                          "model": "V01",
+                          "elapsed_time": 0.5242340564727783,
+                          "classification": [
+                            {
+                              "label": "artificial",
+                              "score": 0.9942552447319032
+                            },
+                            {
+                              "label": "human",
+                              "score": 0.005744705908000469
+                            }
+                          ]
+                        },
+                        {
+                          "model": "brokenwand2",
+                          "elapsed_time": 1.312359094619751,
+                          "classification": [
+                            {
+                              "label": "artificial",
+                              "score": 0.33324843645095825
+                            },
+                            {
+                              "label": "human",
+                              "score": 0.6667515635490417
+                            }
+                          ]
+                        }
+                      ]
+                    ],
+                    "pre_process": 1185.37,
+                    "std_deviations": {
+                      "V01": 0.005633900655308306,
+                      "brokenwand2": 0.08033582065383414,
+                      "V011": 0.003057153072553004
+                    },
+                    "classification_matrix": {
+                      "V01": {
+                        "confidence": 0.9876174569129944,
+                        "classification": "artificial"
+                      },
+                      "brokenwand2": {
+                        "confidence": 0.751547685265541,
+                        "classification": "human"
+                      },
+                      "V011": {
+                        "confidence": 0.9958254098892212,
+                        "classification": "artificial"
+                      }
+                    }
+                  },
+                  "verdicts": [
+                    {
+                      "models": [
+                        "brokenwand2"
+                      ],
+                      "heuristic": "Majority",
+                      "confidence": 0.751547685265541,
+                      "classification": "human"
+                    },
+                    {
+                      "models": [
+                        "brokenwand2"
+                      ],
+                      "heuristic": "Average",
+                      "confidence": 0.751547685265541,
+                      "classification": "human"
+                    },
+                    {
+                      "models": [
+                        "brokenwand2"
+                      ],
+                      "heuristic": "AverageExclude10",
+                      "confidence": 0.751547685265541,
+                      "classification": "human"
+                    },
+                    {
+                      "models": [
+                        "brokenwand2"
+                      ],
+                      "heuristic": "AverageExclude20",
+                      "confidence": 0.751547685265541,
+                      "classification": "human"
+                    },
+                    {
+                      "models": [
+                        "brokenwand2"
+                      ],
+                      "heuristic": "AverageExclude30",
+                      "confidence": 0.751547685265541,
+                      "classification": "human"
+                    },
+                    {
+                      "models": [
+                        "brokenwand2"
+                      ],
+                      "heuristic": "TopRelevant",
+                      "confidence": 0.75,
+                      "classification": "human"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/VideoResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user": {
+      "post": {
+        "summary": "Create new user",
+        "description": "Create a new user profile",
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "The name of the new user."
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "The email of the new user."
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "The password for the new user."
+                  },
+                  "tos": {
+                    "type": "boolean",
+                    "description": "True if Terms of Service are accepted."
+                  }
+                },
+                "required": [
+                  "name",
+                  "email",
+                  "password",
+                  "tos"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete user",
+        "description": "Delete a user profile",
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ImageResponse": {
+        "type": "object",
+        "description": "The answer for image classification",
+        "properties": {
+          "hash": {
+            "type": "string",
+            "description": "The hash that identifies the classified image"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the classified image file"
+          },
+          "c2pa": {
+            "type": "object",
+            "properties": {},
+            "description": "Coalition for Content Provenance and Authenticity informations that certifies the source and history of media content."
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Result"
+            },
+            "description": "Results array"
+          },
+          "verdicts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Verdict"
+            },
+            "description": "Verdicts array"
+          }
+        }
+      },
+      "VideoResponse": {
+        "type": "object",
+        "description": "The answer for video classification",
+        "properties": {
+          "hash": {
+            "type": "string",
+            "description": "The hash that identifies the classified video"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the classified video file"
+          },
+          "results": {
+            "type": "object",
+            "properties": {
+              "images": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Result"
+                  },
+                  "description": "Results for each image"
+                },
+                "description": "Images results"
+              },
+              "pre_process": {
+                "type": "number",
+                "description": "Pre processing"
+              },
+              "std_deviations": {
+                "type": "object",
+                "description": "Standard deviations for each model",
+                "properties": {
+                  "V01": {
+                    "type": "number",
+                    "description": "Standard deviation value for V01"
+                  },
+                  "brokenwand2": {
+                    "type": "number",
+                    "description": "Standard deviation value for brokenwand2"
+                  },
+                  "V011": {
+                    "type": "number",
+                    "description": "Standard deviation value for V011"
+                  }
+                }
+              },
+              "classification_matrix": {
+                "type": "object",
+                "description": "Classification matrix",
+                "properties": {
+                  "V01": {
+                    "type": "object",
+                    "properties": {
+                      "confidence": {
+                        "type": "number",
+                        "description": "Confidence of the classification between 0 and 1"
+                      },
+                      "classification": {
+                        "type": "string",
+                        "description": "Classification result",
+                        "enum": [
+                          "human",
+                          "artificial"
+                        ]
+                      }
+                    }
+                  },
+                  "brokenwand2": {
+                    "type": "object",
+                    "properties": {
+                      "confidence": {
+                        "type": "number"
+                      },
+                      "classification": {
+                        "type": "string",
+                        "enum": [
+                          "human",
+                          "artificial"
+                        ]
+                      }
+                    }
+                  },
+                  "V011": {
+                    "type": "object",
+                    "properties": {
+                      "confidence": {
+                        "type": "number"
+                      },
+                      "classification": {
+                        "type": "string",
+                        "enum": [
+                          "human",
+                          "artificial"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "verdicts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Verdict"
+            },
+            "description": "Verdicts array"
+          }
+        }
+      },
+      "Verdict": {
+        "type": "object",
+        "description": "The final classification response for the considered heuristic",
+        "properties": {
+          "models": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Model name"
+            },
+            "description": "Array of models used"
+          },
+          "heuristic": {
+            "type": "string",
+            "description": "Used heuristic name"
+          },
+          "confidence": {
+            "type": "number",
+            "description": "The confidence of the classification result form 0 to 1"
+          },
+          "classification": {
+            "type": "string",
+            "enum": [
+              "human",
+              "artificial"
+            ],
+            "description": "The classification result with the used heuristic"
+          }
+        },
+        "required": [
+          "heuristic",
+          "confidence",
+          "classification"
+        ]
+      },
+      "Result": {
+        "type": "object",
+        "description": "The score obtained in each category (human or artificial) for the model used",
+        "properties": {
+          "model": {
+            "type": "string",
+            "description": "The model used for calssification"
+          },
+          "elapsed_time": {
+            "type": "number",
+            "description": "The time taken for classification in minutes"
+          },
+          "classification": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "description": "Category",
+                  "enum": [
+                    "human",
+                    "artificial"
+                  ]
+                },
+                "score": {
+                  "type": "number",
+                  "description": "Score from 0 to 1"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "name": "X-Api-Key",
+        "in": "header",
+        "description": "Your API key."
+      }
+    }
+  }
+}

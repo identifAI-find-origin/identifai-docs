@@ -1,0 +1,88 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "IdentifAI",
+  "logo": {
+    "dark": "/logo/logo-nastro.svg",
+    "light": "/logo/light.svg"
+  },
+  "theme": "prism",
+  "favicon": "favicon.png",
+  "colors": {
+    "primary": "#0d7091",
+    "light": "#0799ca",
+    "dark": "#0d7091",
+    "anchors": {
+      "from": "#0D9373",
+      "to": "#07C983"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "mailto:hi@mintlify.com"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Dashboard",
+    "url": "https://dashboard.mintlify.com"
+  },
+  "openapi": "/my-api/api-swagger-dev-documentation.json",
+  "tabs": [
+    {
+      "name": "DELETE",
+      "url": "api-reference"
+    },
+    {
+      "name": "API Reference",
+      "url": "my-api"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "API Reference",
+      "openapi": "/my-api/api-swagger-dev-documentation.json",
+      "url": "my-api",
+      "icon": "square-terminal"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Get Started",
+      "pages": [
+        "introduction",
+        "quickstart",
+        "development"
+      ]
+    },
+    {
+      "group": "Essentials",
+      "pages": [
+        "essentials/markdown",
+        "essentials/code",
+        "essentials/images",
+        "essentials/settings",
+        "essentials/navigation",
+        "essentials/reusable-snippets"
+      ]
+    },
+    {
+      "group": "API Documentation",
+      "pages": [
+        "api-reference/introduction"
+      ]
+    },
+    {
+      "group": "Endpoint Examples",
+      "pages": [
+        "api-reference/endpoint/get",
+        "api-reference/endpoint/create",
+        "api-reference/endpoint/delete"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "github": "https://github.com/identifAI-find-origin",
+    "linkedin": "https://www.linkedin.com/company/identifai-find-origin/?originalSubdomain=it",
+    "website": "https://identifai.net/"
+  }
+}
