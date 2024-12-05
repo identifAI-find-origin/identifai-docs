@@ -1,0 +1,37 @@
+---
+title: 'Classify an image'
+description: 'How to start an image classification'
+icon: 'image'
+---
+
+## 1. Send a POST request
+To classify an image, you need to make a **POST** request to `/api/classification` with the required parameters (for details on the parameters, refer to the [API Reference](../api-reference/classification/classify-an-image) section).
+```bash
+curl --request POST \
+  --url https://backend.identifai.net/api/classification \
+  --header 'Content-Type: multipart/form-data' \
+  --header 'X-Api-Key: <api-key>' \
+  --form with_llm=false \
+  --form with_morphing=false
+```
+In response you will receive the hash of the classified image.
+
+## 2. Retrieve the results
+Use the provided hash to retrieve the classification results by making a **GET** request to `/api/classification/{hash}` (for details on how to structure this request, see the [API Reference](../api-reference/classification/get-an-image-classification-result) section).
+```bash
+curl --request GET \
+  --url https://backend.identifai.net/api/classification/{hash} \
+  --header 'X-Api-Key: <api-key>'
+```
+The response will contain the classification results for the image in JSON format. In the response, you will find a results array, which includes the classification results for each model used, and a verdicts array, which contains the results for each heuristic applied.
+<Note>
+  The classification may not be finished yet! If the classification is not yet complete, continue sending the GET request until the result is available.
+</Note>
+
+### See also
+<Card
+title="Classify a video"
+icon="video"
+href="classify-video">
+Find out how to start a video classification and discover whether your video is authentic or artificially generated
+</Card>

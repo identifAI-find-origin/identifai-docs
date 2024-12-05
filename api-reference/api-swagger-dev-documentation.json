@@ -24,7 +24,7 @@
     "/api/classifications": {
       "get": {
         "summary": "Get all classifications",
-        "description": "Retrieve a comprehensive list of all image classification requests.",
+        "description": "Retrieve a comprehensive list of all image and video classification requests.",
         "tags": [
           "Classification"
         ],
@@ -138,7 +138,7 @@
     },
     "/api/classification": {
       "post": {
-        "summary": "Submit an image for classification",
+        "summary": "Classify an image",
         "description": "Submit an image to be classified as human or artificial.",
         "tags": [
           "Classification"
@@ -190,7 +190,7 @@
     },
     "/api/classification/{hash}": {
       "get": {
-        "summary": "Get a classification result",
+        "summary": "Get an image classification result",
         "description": "Retrieve the classification result for a specific image.",
         "tags": [
           "Classification"
@@ -308,7 +308,7 @@
     },
     "/api/classification_video": {
       "post": {
-        "summary": "Submit a video for classification",
+        "summary": "Classify a video",
         "description": "Submit a video for classification",
         "tags": [
           "Classification"
@@ -704,7 +704,7 @@
     },
     "/api/user": {
       "post": {
-        "summary": "Create new user",
+        "summary": "Create user",
         "description": "Create a new user profile",
         "tags": [
           "User"

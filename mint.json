@@ -2,11 +2,20 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "IdentifAI",
   "logo": {
-    "dark": "/logo/logo-nastro.svg",
-    "light": "/logo/light.svg"
+    "dark": "/images/logo/dark.svg",
+    "light": "/images/logo/light.svg"
   },
   "theme": "prism",
   "favicon": "favicon.png",
+  "api": {
+    "auth": {
+      "method": "key",
+      "name": "X-Api-Key"
+    },
+    "playground": {
+      "mode": "simple"
+    }
+  },
   "colors": {
     "primary": "#0d7091",
     "light": "#0799ca",
@@ -24,24 +33,20 @@
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "url": "https://web.identifai.net"
   },
   "openapi": "/my-api/api-swagger-dev-documentation.json",
   "tabs": [
     {
-      "name": "DELETE",
-      "url": "api-reference"
-    },
-    {
       "name": "API Reference",
-      "url": "my-api"
+      "url": "api-reference"
     }
   ],
   "anchors": [
     {
       "name": "API Reference",
-      "openapi": "/my-api/api-swagger-dev-documentation.json",
-      "url": "my-api",
+      "openapi": "/api-reference/api-swagger-dev-documentation.json",
+      "url": "api-reference",
       "icon": "square-terminal"
     }
   ],
@@ -51,32 +56,20 @@
       "pages": [
         "introduction",
         "quickstart",
-        "development"
+        "sing-up"
       ]
     },
     {
-      "group": "Essentials",
+      "group": "Classification",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "classification/classify-image",
+        "classification/classify-video"
       ]
     },
     {
       "group": "API Documentation",
       "pages": [
         "api-reference/introduction"
-      ]
-    },
-    {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
       ]
     }
   ],

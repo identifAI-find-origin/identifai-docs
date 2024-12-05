@@ -1,86 +1,66 @@
 ---
 title: 'Quickstart'
-description: 'Start building awesome documentation in under 5 minutes'
+description: 'Start calling our APIs in under 5 minutes'
 ---
 
 ## Setup your development
+Learn how to use IdentifAI's APIs.
 
-Learn how to update your docs locally and deploy them to the public.
-
-### Edit and preview
-
+### Get your API Key
+An API Key allows you to authenticate your requests and access the API services.
+To acquire your API key and begin your development journey, follow these simple steps:
 <AccordionGroup>
-  <Accordion icon="github" title="Clone your docs locally">
-    During the onboarding process, we created a repository on your Github with
-    your docs content. You can find this repository on our
-    [dashboard](https://dashboard.mintlify.com). To clone the repository
-    locally, follow these
-    [instructions](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
-    in your terminal.
+  <Accordion icon="circle-user" iconType="solid" title="Create a user profile and log in to the platform">
+    If you don’t have an account yet, visit our [platform](https://web.identifai.net/register) and **create a user profile**.
+    <br/> Once you’ve completed registration, **verify your email** and **log in** with your credentials.
   </Accordion>
-  <Accordion icon="rectangle-terminal" title="Preview changes">
-    Previewing helps you make sure your changes look as intended. We built a
-    command line interface to render these changes locally. 1. Install the
-    [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the
-    documentation changes locally with this command: ``` npm i -g mintlify ```
-    2. Run the following command at the root of your documentation (where
-    `mint.json` is): ``` mintlify dev ```
+
+  <Accordion icon="bars" iconType="solid" title="Access the user menu">
+    After logging in, you will find yourself on the **main dashboard** of the platform.
+    <br/> Click on the **user icon** (<Icon icon="circle-user" iconType="solid" />) in the top-right corner of the screen to open the **user dropdown menu**.
+  </Accordion>
+
+  <Accordion icon="key" iconType="solid" title="Select the API Key option">
+    In the dropdown menu, select the **“Api-Key”** option. From there, you can **view** or **reset** your API key.
+  </Accordion>
+</AccordionGroup>
+Your API key is ready to be used — start using our APIs now!
+<Note>
+  Store the API key in a secure location and avoid sharing it publicly.
+</Note>
+
+### Make an API call
+<AccordionGroup>
+  <Accordion icon="message-bot" title="Install our Github app">
+    Our Github app automatically deploys your changes to your docs site, so you
+    don't need to manage deployments yourself. You can find the link to install on
+    your [dashboard](https://dashboard.mintlify.com). Once the bot has been
+    successfully installed, there should be a check mark next to the commit hash
+    of the repo.
+  </Accordion>
+
+  <Accordion icon="rocket" title="Push your changes">
+    [Commit and push your changes to
+    Git](https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository#about-git-push)
+    for your changes to update in your docs site. If you push and don't see that
+    the Github app successfully deployed your changes, you can also manually
+    update your docs through our [dashboard](https://dashboard.mintlify.com).
   </Accordion>
 </AccordionGroup>
 
-### Deploy your changes
-
-<AccordionGroup>
-
-<Accordion icon="message-bot" title="Install our Github app">
-  Our Github app automatically deploys your changes to your docs site, so you
-  don't need to manage deployments yourself. You can find the link to install on
-  your [dashboard](https://dashboard.mintlify.com). Once the bot has been
-  successfully installed, there should be a check mark next to the commit hash
-  of the repo.
-</Accordion>
-<Accordion icon="rocket" title="Push your changes">
-  [Commit and push your changes to
-  Git](https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository#about-git-push)
-  for your changes to update in your docs site. If you push and don't see that
-  the Github app successfully deployed your changes, you can also manually
-  update your docs through our [dashboard](https://dashboard.mintlify.com).
-</Accordion>
-
-</AccordionGroup>
-
-## Update your docs
-
-Add content directly in your files with MDX syntax and React components. You can use any of our components, or even build your own.
-
+## In-depth guides
 <CardGroup>
+  <Card 
+    title="Classify an image"
+    icon="image"
+    href="classification/classify-image">
+    Start an image classification and find out if your image is real or artificially generated!
+  </Card>
 
-<Card title="Style Your Docs" icon="paintbrush" href="/settings/global">
-  Add flair to your docs with personalized branding.
-</Card>
-
-<Card
-  title="Add API Endpoints"
-  icon="square-code"
-  href="/api-playground/configuration"
->
-  Implement your OpenAPI spec and enable API user interaction.
-</Card>
-
-<Card
-  title="Integrate Analytics"
-  icon="chart-mixed"
-  href="/analytics/supported-integrations"
->
-  Draw insights from user interactions with your documentation.
-</Card>
-
-<Card
-  title="Host on a Custom Domain"
-  icon="browser"
-  href="/settings/custom-domain/subdomain"
->
-  Keep your docs on your own website's subdomain.
-</Card>
-
+  <Card
+    title="Classify a video"
+    icon="film"
+    href="classification/classify-video">
+    Find out how to start a video classification and discover whether your video is authentic or artificially generated
+  </Card>
 </CardGroup>
