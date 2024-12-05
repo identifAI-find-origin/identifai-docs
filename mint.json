@@ -28,11 +28,11 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "#"
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
+    "name": "Go to Dashboard",
     "url": "https://web.identifai.net"
   },
   "openapi": "/my-api/api-swagger-dev-documentation.json",
