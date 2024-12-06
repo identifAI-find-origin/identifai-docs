@@ -181,6 +181,9 @@
             "description": "The classification hash.",
             "content": {
               "application/json": {
+                "schema": {
+                  "type": "string"
+                },
                 "example": "8d64370a87b820cc1cf620338f5c898bab37439c9a405f32d9eaffc50c4f27b0"
               }
             }
@@ -360,6 +363,9 @@
             "description": "The classification hash.",
             "content": {
               "application/json": {
+                "schema": {
+                  "type": "string"
+                },
                 "example": "ee9ac46c6eb0e7bcce54c4167a168cefe6f92feb4fb282687fbbbcf9dd37ba58"
               }
             }
