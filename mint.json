@@ -48,8 +48,8 @@
       "pages": [
         "introduction",
         "quickstart",
-        "dashboard",
         "sign-up",
+        "dashboard",
         "faq"
       ]
     },
