@@ -28,7 +28,7 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "#"
+      "url": "https://identifai.net/contact/"
     }
   ],
   "topbarCtaButton": {
@@ -56,11 +56,12 @@
       "pages": [
         "introduction",
         "quickstart",
-        "sing-up"
+        "sing-up",
+        "faq"
       ]
     },
     {
-      "group": "Classification",
+      "group": "Classification API",
       "pages": [
         "classification/classify-image",
         "classification/classify-video"

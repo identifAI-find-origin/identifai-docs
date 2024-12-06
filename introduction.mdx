@@ -15,33 +15,6 @@ description: "API for integrating IdentifAI's image and video classification cap
 />
 
 ## Setting up
-## How to obtain your API Key
-To obtain your API key, follow these simple steps:   
-- Create a user profile and log in to the platform: If you don't have an account yet, visit our platform and create a user profile. Once you've completed registration and verified your email, log in with your credentials.
-- Access the user menu: After logging in, click on your name or the user icon in the top-right corner of the screen.
-- Select the API Key option: In the dropdown menu that appears, select the \"API Key\" option. From there, you can view or generate your API key.
-Now you are ready to use your API key in our API!
-
-## How to use the API
-To use the API, first make a **POST** request to start the classification. Then, use the provided ***hash*** from the **POST** request to retrieve the results.
-### 1. Image Classification
-* To classify an image, you need to make a **POST** request to `/api/classification` with the required parameters (for details on the parameters, refer to the *\"Classification\"* section below).
-* In the response, you will receive the ***hash*** of the classified image.\n  
-* Use the provided ***hash*** to retrieve the classification results by making a **GET** request to `/api/classification/{hash}` (for details on how to structure this request, see the *\"Classification\"* section below).
-* The response will contain the classification results for the image in JSON format.
-In the response, you will find a ***results*** array, which includes the classification results for each model used, and a ***verdicts*** array, which contains the results for each heuristic applied.
-If the classification is not yet complete, continue sending the **GET** request until the result is available.
-### 2. Video Classification
-* To classify a video, you need to make a **POST** request to `/api/classification_video` with the required parameters (for details on the parameters, refer to the *\"Classification\"* section below).
-* In the response, you will receive the ***hash*** of the classified video.
-* Use the provided ***hash*** to retrieve the classification results by making a **GET** request to `/api/classification_video/{hash}` (for details on how to structure this request, see the *\"Classification\"* section below).
-* The response will provide the classification results for the video in JSON format. For video classification, the video is divided into *frames*.
-In the response, you will find a ***results*** array that includes the classification outcomes for each model applied to each analyzed frame, and a ***verdicts*** array containing the results for each heuristic used.
-If the classification is not complete, continue sending the **GET** request until the final results are returned.
-### 3. All Classifications
-The `/api/classifications` endpoint will return all the image classifications made by a user. This will list the results of all past image classification requests.
-### 4. User Management
-The **POST** `/api/user` endpoint allows you to create a user, while the **DELETE** `/api/user` endpoint is used to delete a user (For the structure of the requests, see more in the user section below).
 
 <CardGroup cols={2}>
   <Card
