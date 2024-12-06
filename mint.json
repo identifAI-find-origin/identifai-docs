@@ -56,7 +56,8 @@
       "pages": [
         "introduction",
         "quickstart",
-        "sing-up",
+        "dashboard",
+        "sign-up",
         "faq"
       ]
     },
