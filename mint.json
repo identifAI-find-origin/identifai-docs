@@ -74,6 +74,12 @@
         "api-reference/classification/submit-a-video-for-classification",
         "api-reference/classification/get-classification-result-1"
       ]
+    },
+    {
+      "group": "User",
+      "pages": [
+        "api-reference/user/user-credits"
+      ]
     }
   ],
   "footerSocials": {

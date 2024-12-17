@@ -772,6 +772,36 @@
           }
         }
       }
+    },
+    "/api/user/credits": {
+      "get": {
+        "summary": "Get user credits",
+        "description": "Get user credits",
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An object containing the user credits",
+            "content": {
+              "application/json": {
+                "example": {
+                  "available_credits": 159,
+                  "total_spent": 41
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Credits"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -987,6 +1017,19 @@
                 }
               }
             }
+          }
+        }
+      },
+      "Credits": {
+        "type": "object",
+        "properties": {
+          "total_spent": {
+            "type": "number",
+            "description": "Credits used so far"
+          },
+          "available_credits": {
+            "type": "number",
+            "description": "Available credits"
           }
         }
       }
