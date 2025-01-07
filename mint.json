@@ -70,8 +70,10 @@
       "group": "Classification",
       "pages": [
         "api-reference/classification/submit-an-image-for-classification",
+        "api-reference/classification/submit-image-from-url",
         "api-reference/classification/get-classification-result",
         "api-reference/classification/submit-a-video-for-classification",
+        "api-reference/classification/submit-video-from-url",
         "api-reference/classification/get-classification-result-1"
       ]
     },

@@ -191,6 +191,60 @@
         }
       }
     },
+    "/api/image_fromurl": {
+      "post": {
+        "summary": "Classify an image from URL",
+        "description": "Submit an image to be classified as human or artificial.",
+        "tags": [
+          "Classification"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file_url": {
+                    "type": "string",
+                    "description": "The URL of the image to be classified."
+                  },
+                  "with_llm": {
+                    "type": "boolean",
+                    "description": "Set it to true if you also want to get a textual description of the image."
+                  },
+                  "with_morphing": {
+                    "type": "boolean",
+                    "description": "Set it to true if you also want to analyze people's faces in the image using morphing."
+                  }
+                },
+                "required": [
+                  "file_url"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The classification hash.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "8d64370a87b820cc1cf620338f5c898bab37439c9a405f32d9eaffc50c4f27b0"
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/classification/{hash}": {
       "get": {
         "summary": "Get an image classification result",
@@ -366,6 +420,82 @@
                 },
                 "required": [
                   "video"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The classification hash.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "ee9ac46c6eb0e7bcce54c4167a168cefe6f92feb4fb282687fbbbcf9dd37ba58"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/video_fromurl": {
+      "post": {
+        "summary": "Classify a video from URL",
+        "description": "Submit a video for classification",
+        "tags": [
+          "Classification"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file_url": {
+                    "type": "string",
+                    "description": "The URL of the video to be classified."
+                  },
+                  "frames": {
+                    "type": "integer",
+                    "enum": [
+                      5,
+                      10,
+                      30
+                    ],
+                    "description": "Choose to classify a maximum of 5, 10 or 30 frames."
+                  },
+                  "key_frames": {
+                    "type": "boolean",
+                    "description": "If set to true extracts key frames and uses those for classification instead of fixed-time distance images. The extracted key frames may be less than the requested `frames`."
+                  },
+                  "key_frames_method": {
+                    "type": "string",
+                    "enum": [
+                      "iframe",
+                      "flow",
+                      "color"
+                    ],
+                    "description": "Key frames identification algorithm. Possible values are **iframe** (default), **flow** and **color**.\n - `iframes` : extracts the iframes of the video; \n - `color` : returns the average frame, based on color, of every shot sequence. *Shot sequences* are group of frames that start with an iframe; \n - `flow` : returns the most still frame with respect of the previous frame of every shot sequence."
+                  },
+                  "with_llm": {
+                    "type": "boolean",
+                    "description": "Set it to true if you also want to get a textual description of the image."
+                  },
+                  "with_morphing": {
+                    "type": "boolean",
+                    "description": "Set it to true if you also want to analyze people's faces in the image using morphing."
+                  }
+                },
+                "required": [
+                  "file_url"
                 ]
               }
             }

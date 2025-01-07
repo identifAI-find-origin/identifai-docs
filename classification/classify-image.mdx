@@ -4,8 +4,11 @@ description: 'How to start an image classification'
 icon: 'image'
 ---
 
+You can classify an image either from a **file** or a **URL**.
+<br/> This section explains how to make a request using a file. For a URL, the process is similar, with the main difference being the [endpoint](../api-reference/classification/submit-image-from-url) to call in *step 1*. 
+
 ## 1. Send a POST request
-To classify an image, you need to make a **POST** request to `/api/classification` with the required parameters (for details on the parameters, refer to the [API Reference](../api-reference/classification/classify-an-image) section).
+To classify an image, you need to make a **POST** request to `/api/classification` with the required parameters (for details on the parameters, refer to the [API Reference](../api-reference/classification/submit-an-image-for-classification) section).
 ```bash
 curl --request POST \
   --url https://backend.identifai.net/api/classification \
@@ -15,9 +18,12 @@ curl --request POST \
   --form with_morphing=false
 ```
 In response you will receive the hash of the classified image.
+<Tip>
+  You can also [classify an image from URL](../api-reference/classification/submit-image-from-url)!
+</Tip>
 
 ## 2. Retrieve the results
-Use the provided hash to retrieve the classification results by making a **GET** request to `/api/classification/{hash}` (for details on how to structure this request, see the [API Reference](../api-reference/classification/get-an-image-classification-result) section).
+Use the provided hash to retrieve the classification results by making a **GET** request to `/api/classification/{hash}` (for details on how to structure this request, see the [API Reference](../api-reference/classification/get-classification-result) section).
 ```bash
 curl --request GET \
   --url https://backend.identifai.net/api/classification/{hash} \
