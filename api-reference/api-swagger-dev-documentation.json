@@ -340,7 +340,20 @@
                       10,
                       30
                     ],
-                    "description": "Choose to classify 5, 10 or 30 frames."
+                    "description": "Choose to classify a maximum of 5, 10 or 30 frames."
+                  },
+                  "key_frames": {
+                    "type": "boolean",
+                    "description": "If set to true extracts key frames and uses those for classification instead of fixed-time distance images. The extracted key frames may be less than the requested `frames`."
+                  },
+                  "key_frames_method": {
+                    "type": "string",
+                    "enum": [
+                      "iframe",
+                      "flow",
+                      "color"
+                    ],
+                    "description": "Key frames identification algorithm. Possible values are **iframe** (default), **flow** and **color**.\n - `iframes` : extracts the iframes of the video; \n - `color` : returns the average frame, based on color, of every shot sequence. *Shot sequences* are group of frames that start with an iframe; \n - `flow` : returns the most still frame with respect of the previous frame of every shot sequence."
                   },
                   "with_llm": {
                     "type": "boolean",
